@@ -36,4 +36,39 @@ class Film
 		SqlRunner.run(sql, values)
 	end
 
+	def self.all()
+		sql = "SELECT * FROM films"
+		values = []
+		films = SqlRunner.run(sql, values)
+		result = films.map {|film| Film.new(film)}
+		return result
+	end
+
+	def update()
+		sql = "UPDATE films SET
+		(
+			title,
+			price
+		)
+		=
+		(
+			$1, $2
+		)
+		WHERE id = $3"
+		values = [@title, @price, @id]
+		SqlRunner.run(sql, values)
+	end
+
+	# def delete()
+	# 	sql = "DELETE FROM films WHERE id=$1;"
+	# 	values = [@id]
+	# 	SqlRunner.run(sql, values)
+	# end
+
+	def customers()
+		sql "SELECT customers.* FROM customers INNER JOIN tickets ON tickets.customer_id = customers.id WHERE film_id = $1;"
+		values = [@id]
+		customers = SqlRunner.run(sql, values)
+		return customers.map {|customer| Customer.new(customer)}
+	end
 end
