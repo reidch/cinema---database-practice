@@ -72,12 +72,15 @@ class Customer
 		return films.map {|film| Film.new(film)}
 	end
 
-# not working yet
-	# def tickets()
-	# 	sql = "SELECT customers.* FROM customers INNER JOIN tickets ON tickets.customer_id = customers.id WHERE film_id = $1;"
-	# 	values = [@id]
-	# 	tickets = SqlRunner.run(sql, values)
-	# 	return tickets
-	# end
+	def tickets()
+		sql = "SELECT count(tickets.*) FROM tickets INNER JOIN customers ON tickets.customer_id = customers.id WHERE customer_id = $1;"
+		values = [@id]
+		tickets = SqlRunner.run(sql, values)
+		return tickets[0]['count'].to_i
+	end
 
+	def deduct_cash(film)
+		@funds -= film.price()
+		return @funds
+	end
 end

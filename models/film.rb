@@ -72,11 +72,10 @@ class Film
 		return customers.map {|customer| Customer.new(customer)}
 	end
 
-# not sure if this works
-	# def customers_per_film()
-	# 	sql = "SELECT COUNT(customer_id) FROM tickets WHERE film_id=$1;"
-	# 	values = [@id]
-	# 	customers = SqlRunner.run(sql, values)
-	# 	return customers
-	# end
+	def customers_per_film()
+		sql = "SELECT COUNT(customer_id) FROM tickets WHERE film_id=$1;"
+		values = [@id]
+		customers = SqlRunner.run(sql, values)
+		return customers[0]['count']
+	end
 end
