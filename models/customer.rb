@@ -1,7 +1,5 @@
 require_relative('../db/sql_runner')
 require_relative('./film')
-require_relative('./ticket')
-# don't think it needs to all from models
 
 class Customer
 
@@ -81,6 +79,5 @@ class Customer
 
 	def deduct_cash(film)
 		@funds -= film.price()
-		return @funds
 	end
 end

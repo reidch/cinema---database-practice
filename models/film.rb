@@ -1,7 +1,5 @@
 require_relative('../db/sql_runner')
 require_relative('./customer')
-require_relative('./ticket')
-# don't think it needs to all from models
 
 class Film
 
